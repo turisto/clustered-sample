@@ -183,9 +183,7 @@
 					<port>${deploy.jboss.port}</port>
 					<username>${deploy.jboss.user}</username>
 					<password>${deploy.jboss.password}</password>
-					<name>${backend.deployment-name}</name>
 					<filename>${project.build.finalName}.war</filename>
-					<skip>${skipDeployment}</skip>
 				</configuration>
 				<executions>
 					<execution>
