@@ -1,10 +1,14 @@
 package com.mycompany;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.WebPage;
+
+import com.mycompany.jms.JmsSender;
 
 public class HomePage extends WebPage {
 	
@@ -13,6 +17,9 @@ public class HomePage extends WebPage {
 	 */
 	private static final long serialVersionUID = -8007430834491140998L;
 
+	@Inject
+	private JmsSender jmsSender;
+	
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
 		setStatelessHint(true);
@@ -29,6 +36,7 @@ public class HomePage extends WebPage {
 			@Override
 			public void onClick() {
 				getMySession().invalidateNow();
+				jmsSender.send();
 			}
 		});
 		// TODO Add your page's components here
