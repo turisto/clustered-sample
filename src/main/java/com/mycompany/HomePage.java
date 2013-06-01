@@ -2,13 +2,15 @@ package com.mycompany;
 
 import javax.inject.Inject;
 
-import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.mycompany.activiti.ActivitiService;
 import com.mycompany.jms.JmsSender;
+
 
 public class HomePage extends WebPage {
 	
@@ -19,6 +21,9 @@ public class HomePage extends WebPage {
 
 	@Inject
 	private JmsSender jmsSender;
+	
+	@Inject 
+	private ActivitiService activitiService;
 	
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
@@ -37,6 +42,7 @@ public class HomePage extends WebPage {
 			public void onClick() {
 				getMySession().invalidateNow();
 				jmsSender.send();
+				activitiService.start(4);
 			}
 		});
 		// TODO Add your page's components here
