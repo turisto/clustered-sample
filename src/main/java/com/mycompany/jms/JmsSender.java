@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -18,8 +19,9 @@ public class JmsSender {
 	private javax.jms.Queue queue;
 
 	public void send() {
+		Connection connection = null;
 		try {
-			Connection connection = connectionFactory.createConnection();
+			connection = connectionFactory.createConnection();
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			MessageProducer producer = session.createProducer(queue);
@@ -30,9 +32,15 @@ public class JmsSender {
 				System.out.println("Sending message: " + message.getText());
 				producer.send(message);
 			}
-			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (JMSException e) {
+				}
+			}
 		}
 	}
 }
