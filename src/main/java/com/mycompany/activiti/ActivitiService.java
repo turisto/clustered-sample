@@ -33,6 +33,12 @@ public class ActivitiService {
 		for (int i = 0; i < count; i++) {
 			ProcessInstance pi = runtimeService.startProcessInstanceById(pd.getId());
 			System.out.println(String.format("Started process: %s, id: %s, count: %d, pi id: %s", pd.getName(), pd.getId(), i, pi.getProcessInstanceId()));
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Active count: " + runtimeService.createProcessInstanceQuery().count());		
 	}
