@@ -30,6 +30,7 @@ public class JmsSender {
 				System.out.println("Sending message: " + message.getText());
 				producer.send(message);
 			}
+			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
