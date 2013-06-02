@@ -18,7 +18,7 @@ public class JmsSender {
 	@Resource(mappedName = "java:/queue/Queue")
 	private javax.jms.Queue queue;
 
-	public void send() {
+	public void send(int counter) {
 		Connection connection = null;
 		try {
 			connection = connectionFactory.createConnection();
@@ -27,7 +27,7 @@ public class JmsSender {
 			MessageProducer producer = session.createProducer(queue);
 			TextMessage message = session.createTextMessage();
 
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < counter; i++) {
 				message.setText("This is message " + (i + 1) + " from producer");
 				System.out.println("Sending message: " + message.getText());
 				producer.send(message);

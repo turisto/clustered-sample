@@ -2,6 +2,7 @@ package com.mycompany;
 
 import javax.inject.Inject;
 
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -41,8 +42,16 @@ public class HomePage extends WebPage {
 			@Override
 			public void onClick() {
 				getMySession().invalidateNow();
-				jmsSender.send();
-				activitiService.start(4);
+				jmsSender.send(4);
+				for (int i = 0; i < 4; i++) {
+					activitiService.start(i);
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		// TODO Add your page's components here
