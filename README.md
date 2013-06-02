@@ -7,11 +7,12 @@ Requirements
 Jboss 7 JMS queue configuration
 ==================
 
-<jms-destinations>
+```<jms-destinations>
 	<jms-queue name="Queue">
 		<entry name="java:/queue/Queue"/>
 	</jms-queue>
 </jms-destinations>
+```
 
 PostgreSQL database configuration
 ==================
